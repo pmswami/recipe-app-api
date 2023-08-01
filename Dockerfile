@@ -36,10 +36,12 @@ RUN python -m venv /py && \
     adduser \
         --disabled-password \
         --no-create-home \
-        django-user
+        #django-user
+        app
 
 #Specify ENV variable 
 ENV PATH="/py/bin:$PATH"
 
 #Specify the user to be used in container
 #USER django-user
+USER app
