@@ -7,6 +7,8 @@ services:
     build: 
     # Build from Dockerfile in current directory
       context: .
+      args:
+        - DEV=true
     ports:
       - "8000:8000"
     volumes:
