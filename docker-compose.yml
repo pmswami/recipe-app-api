@@ -1,0 +1,15 @@
+#Define version
+version: "3.9"
+
+services:
+  app:
+    build: 
+    # Build from Dockerfile in current directory
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+
