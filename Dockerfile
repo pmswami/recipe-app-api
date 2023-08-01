@@ -42,4 +42,4 @@ RUN python -m venv /py && \
 ENV PATH="/py/bin:$PATH"
 
 #Specify the user to be used in container
-USER django-user
+#USER django-user
