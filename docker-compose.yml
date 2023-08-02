@@ -13,8 +13,9 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
-    command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+    command: 
+      - sudo chown $(whoami):$(whoami) ./app/db.sqlite3
+      - sh -c "python manage.py runserver 0.0.0.0:8000"
     environment:
       - DB_HOST=db
       - DB_USER=devuser
