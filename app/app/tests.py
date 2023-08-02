@@ -15,4 +15,3 @@ class CalcTest(SimpleTestCase):
 
         self.assertEqual(res, 11)
 
- 
