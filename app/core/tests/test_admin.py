@@ -6,7 +6,7 @@ from django.test import TestCase, Client
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-class AdminSIteTests(TestCase):
+class AdminSiteTests(TestCase):
     """Testing the admin site for users."""
     def setUp(self):
         self.client = Client()
