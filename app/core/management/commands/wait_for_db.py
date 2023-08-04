@@ -28,4 +28,4 @@ class Command(BaseCommand):
                     self.stdout.write('Unable to establish conection with DB')
                     exit()
 
-        self.stdout.write('Database available!')
+        self.stdout.write(self.style.SUCCESS('Database available!'))
