@@ -23,11 +23,12 @@ class PublicUserApiTests(TestCase):
     def test_create_user_success(self):
         """Test creating a user is successful"""
         payload={
-            "email":"test1@example.com",
-            "password":"testpass123",
+            "email": "test123@example.com",
+            "password": "testpass123",
             "name": "Test Name",
         }
         res = self.client.post(CREATE_USER_URL, payload)
+
         # Check if response contains data
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         user = get_user_model().objects.get(email=payload["email"])
