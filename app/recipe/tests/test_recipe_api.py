@@ -18,7 +18,7 @@ def create_recipe(user, **params):
     defaults = {
         "title": "Sample recipe title",
         "time_minutes": 22,
-        "price": Decimal("5,25"),
+        "price": Decimal("5.25"),
         "description":"Sample Description",
         "link": "http://example.com/recipe.pdf"
     }
