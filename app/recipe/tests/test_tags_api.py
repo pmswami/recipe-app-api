@@ -67,7 +67,7 @@ class PrivateTagsApiTests(TestCase):
         self.assertEqual(res.data[0]["name"], tag.name)
         self.assertEqual(res.data[0]["id"], tag.id)
 
-    def test_updste_tags(self):
+    def test_update_tags(self):
         """Test updating of tags"""
         # Update an existing tag
         tag = Tag.objects.create(user = self.user, name="After Dinner")
