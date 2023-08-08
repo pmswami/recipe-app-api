@@ -12,7 +12,7 @@ from rest_framework.test import APIClient
 from core.models import Tag
 from recipe.serializers import TagSerializer
 
-TAGS_URL = reverse("recipe:tags-list")
+TAGS_URL = reverse("recipe:tag-list")
 
 def create_user(email="test@example.com", password="testpass123"):
     """Create a new user with email and passowrd."""
