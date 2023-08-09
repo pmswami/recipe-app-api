@@ -7,7 +7,16 @@ from rest_framework import serializers
 from core.models import (
     Recipe,
     Tag,
+    Ingredient
 )
+
+class IngredientSerializer(serializers.ModelSerializer):
+    """Serialize ingredient objects"""
+    class Meta:
+        model = Ingredient
+        fields = ["id","name"]
+        read_only_fields = ["id"]
+
 
 class TagSerializer(serializers.ModelSerializer):
     """Serailizer for tag objects"""
@@ -68,6 +77,4 @@ class RecipeDetailSerializer(RecipeSerializer):
 
     class Meta(RecipeSerializer.Meta):
         fields = RecipeSerializer.Meta.fields + ['description']
-
-
 
