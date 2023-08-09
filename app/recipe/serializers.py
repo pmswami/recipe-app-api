@@ -55,7 +55,7 @@ class RecipeSerializer(serializers.ModelSerializer):
                 user=auth_user,
                 **ingredient,
             )
-            recipe.tags.add(ingredient_obj)
+            recipe.ingredients.add(ingredient_obj)
 
     def create(self, validated_data):
         """Create and return new recipe"""
