@@ -4,7 +4,7 @@ FROM python:3.9-alpine3.13
 #Define author of the Dockerfile
 LABEL maintainer="swamfire"
 
-#Use python stdout as stdout of docker. 
+#Use python stdout as stdout of docker.
 #This will print the output from Python directly to docker console
 ENV PYTHONUNBUFFERED 1
 
@@ -25,12 +25,12 @@ EXPOSE 8000
 
 ARG DEV=false
 
-#Run container initialization commands 
+#Run container initialization commands
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
-    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache postgresql-client jpeg-dev && \
     apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev && \
+        build-base postgresql-dev musl-dev zlib zlib-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
@@ -42,7 +42,7 @@ RUN python -m venv /py && \
         --no-create-home \
         django-user
 
-#Specify ENV variable 
+#Specify ENV variable
 ENV PATH="/py/bin:$PATH"
 
 #Specify the user to be used in container
