@@ -40,7 +40,13 @@ RUN python -m venv /py && \
     adduser \
         --disabled-password \
         --no-create-home \
-        django-user
+        django-user && \
+    mkdir -p /vol/web/media && \
+    mkdir -p /vol/web/static && \
+    # changes ownership of newly created directory
+    chown -R django-user:django-user /vol && \
+    # changes access to directory
+    chmod -R 755 /vol
 
 #Specify ENV variable
 ENV PATH="/py/bin:$PATH"
