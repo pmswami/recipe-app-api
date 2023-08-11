@@ -25,6 +25,23 @@ from drf_spectacular.utils import (
 )
 from recipe import serializers
 
+#Extend the default schema of drf_spectacular
+@extend_schema_view(
+    list=extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "tags",
+                OpenApiTypes.STR,
+                description="A comma-separated list of tags.",
+                ),
+            OpenApiParameter(
+                'ingredients',
+                OpenApiTypes.STR,
+                description='A comma separated list of ingredient names.',
+            )
+        ]
+    )
+)
 class RecipeViewSet(viewsets.ModelViewSet):
     """Manage recipes in the database."""
     serializer_class = serializers.RecipeDetailSerializer
