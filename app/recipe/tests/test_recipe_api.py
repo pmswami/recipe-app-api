@@ -385,7 +385,7 @@ class PrivateRecipeApiTests(TestCase):
         self.assertIn(s2.data, res.data)
         self.assertNotIn(s3.data, res.data)
 
-    def filter_by_ingredients(self):
+    def test_filter_by_ingredients(self):
         """ Filter by ingredients"""
         r1 = create_recipe(user = self.user, title="Posh Beans on Toast")
         r2 = create_recipe(user = self.user, title="Chicken Cacciatore")
