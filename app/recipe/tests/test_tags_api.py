@@ -14,7 +14,7 @@ from recipe.serializers import TagSerializer
 
 from decimal import Decimal
 from core.models import (
-    Tags,
+    Tag,
     Recipe,
 )
 
