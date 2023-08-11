@@ -365,6 +365,47 @@ class PrivateRecipeApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(recipe.ingredients.count(), 0)
 
+    def test_filter_by_tags(self):
+        """Test filtering recipes by tags"""
+        r1 = create_recipe(user=self.user, title="Thai Vegetable Curry")
+        tag1 = Tag.objects.create(user=self.user, name="Vegan")
+        r1.tags.add(tag1)
+        r2 = create_recipe(user = self.user, title = "Aubergini with Tahini")
+        tag2 = Tag.objects.create(user=self.user,name ="Vegetarian")
+        r2.tags.add(tag2)
+        r3 = create_recipe(user=self.user, title="Fish and Chips")
+
+        params = {"tags": f"{tag1.id},{tag2.id}"}
+        res = self.client.get(RECIPE_URL, params)
+
+        s1 = RecipeSerializer(r1)
+        s2 = RecipeSerializer(r2)
+        s3 = RecipeSerializer(r3)
+        self.assertIn(s1.data, res.data)
+        self.assertIn(s2.data, res.data)
+        self.assertNotIn(s3.data, res.data)
+
+    def filter_by_ingredients(self):
+        """ Filter by ingredients"""
+        r1 = create_recipe(user = self.user, title="Posh Beans on Toast")
+        r2 = create_recipe(user = self.user, title="Chicken Cacciatore")
+        r3 = create_recipe(user = self.user, title="Red Lentil Daal")
+        ingredient1 = Ingredient.objects.create(user=self.user, name="Feta Cheese")
+        ingredient2 = Ingredient.objects.create(user=self.user, name="Chicken")
+        r1.ingredients.add(ingredient1)
+        r2.ingredients.add(ingredient2)
+
+        params = {'ingredients':f'{ingredient1.id}, {ingredient2.id}' }
+        res = self.client.get(RECIPE_URL,params)
+
+        serializer1 = RecipeSerializer(r1)
+        serializer2 = RecipeSerializer(r2)
+        serializer3 = RecipeSerializer(r3)
+        self.assertIn(serializer1.data,res.data)
+        self.assertIn(serializer2.data,res.data)
+        self.assertNotIn(serializer3.data,res.data)
+
+
 class ImageUploadTests(TestCase):
     """Testing image upload functionality of recipes app"""
 
@@ -399,6 +440,6 @@ class ImageUploadTests(TestCase):
     def test_upload_image_bad_request(self):
         """Test uploading invalid image file fails"""
         url = image_upload_url(self.recipe.id)
-        payload = {'image': 'notaimage'}
+        payload = {'image': 'notanimage'}
         res = self.client.post(url, payload, format='multipart')
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
