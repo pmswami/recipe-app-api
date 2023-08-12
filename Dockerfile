@@ -17,6 +17,9 @@ COPY ./requirements.dev.txt /tmp/requirements.dev.txt
 #Copy content from local directory to docker container
 COPY ./app /app
 
+#Copy helper scripts
+COPY ./scripts /scripts
+
 #Create working directory in docker containers
 WORKDIR /app
 
@@ -30,7 +33,7 @@ RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
     apk add --update --no-cache postgresql-client jpeg-dev && \
     apk add --update --no-cache --virtual .tmp-build-deps \
-        build-base postgresql-dev musl-dev zlib zlib-dev && \
+        build-base postgresql-dev musl-dev zlib zlib-dev linux-header && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = "true" ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
@@ -46,10 +49,14 @@ RUN python -m venv /py && \
     # changes ownership of newly created directory
     chown -R django-user:django-user /vol && \
     # changes access to directory
-    chmod -R 755 /vol
+    chmod -R 755 /vol && \
+    #chanegs permissions of scripts dir
+    chmod -R +x /scripts
 
 #Specify ENV variable
 ENV PATH="/py/bin:$PATH"
 
 #Specify the user to be used in container
 USER django-user
+
+CMD ["run.sh"]
