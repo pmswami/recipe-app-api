@@ -28,13 +28,13 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "changeme")
 DEBUG = bool(int(os.environ.get("DEBUG", 0)))
 #True
 
-ALLOWED_HOSTS = ["*"]
-ALLOWED_HOSTS.extend(
-    filter(
-        None,
-        os.environ.get("ALLOWED_HOSTS", "").split(","),
-    )
-)
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS.extend(os.environ.get("ALLOWED_HOSTS", "").split(","))
+#     filter(
+#         None,
+#         os.environ.get("ALLOWED_HOSTS", "").split(","),
+#     )
+# )
 
 
 # Application definition
